@@ -1,38 +1,40 @@
 package io.github.NegroBob.Parachute;
 
-import java.util.Vector;
-import org.bukkit.entity.Chicken;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.event.Listener;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.PlayerLeashEntityEvent;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.entity.PlayerLeashEntityEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.entity.Chicken;
+import org.bukkit.entity.Squid;
 
 public class Parachute extends JavaPlugin implements Listener {
 	
-	public void onenable(){
+	@Override
+	public void onEnable(){
 		getServer().getPluginManager().registerEvents(this, this);
 		
 	}
 
-	public void ondisable(){
-		
-	}
 	@EventHandler
 	public void onLeash(PlayerLeashEntityEvent LeashEvent){
-		getLogger().info(LeashEvent.getPlayer().getName() + " leashed!");
 		
 		Player player = LeashEvent.getPlayer();
 		Entity leashed = LeashEvent.getEntity();
+		getLogger().info(LeashEvent.getPlayer().getName() + " leashed!");
 		
 		if (leashed instanceof Chicken){
-			
-			player.sendMessage("I'm a chicen bro");
+			player.sendMessage("I'm a chicken bro");
+			player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 30, 30));
 					
-				}else{
-					player.sendMessage("I'm not a chicken bro");
+		if (leashed instanceof Squid) {
+			player.sendMessage("I'm a squid bro");
+			player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, 30, 30));
+			
+				}
 			}	
 		}	
 	}
